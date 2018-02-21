@@ -1,0 +1,26 @@
+{
+	"IamInstanceProfile": {
+		"Name": .iamprofile
+	},
+	"ImageId": $ami,
+	"InstanceType": "m4.2xlarge",
+	"KeyName": $key,
+	"SecurityGroupIds": .securitygroups,
+	"BlockDeviceMappings": [
+		{
+			"DeviceName": "/dev/sdf",
+			"Ebs": {
+				"SnapshotId": .snapshot,
+				"DeleteOnTermination": true,
+				"VolumeSize": 200
+			}
+		}
+	],
+	"UserData": {
+		"credentials": .credentials,
+		"environment": {
+			"NUCLEOTIDES_API": .url,
+			"NUCLEOTIDES_S3_URL": .s3
+		}
+	} | @base64
+}
